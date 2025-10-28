@@ -8,27 +8,73 @@ const state = {
     blockedIPs: []
 };
 
-// Tools Configuration
+// Enhanced tools configuration with categories
 const tools = {
+    defense: {
+        'Network Security': [
+            { id: 'firewall', name: 'Firewall', desc: 'Configure network firewall', icon: '🔥' },
+            { id: 'vpn', name: 'VPN', desc: 'Secure VPN connection', icon: '🔒' },
+            { id: 'ids', name: 'Intrusion Detection', desc: 'Monitor for intrusions', icon: '🚨' },
+            { id: 'web-filter', name: 'Web Filter', desc: 'Block malicious sites', icon: '🌐' }
+        ],
+        'Endpoint Protection': [
+            { id: 'antivirus', name: 'Antivirus', desc: 'Scan for malware', icon: '🦠' },
+            { id: 'encryption', name: 'Encryption', desc: 'Encrypt sensitive data', icon: '🔐' },
+            { id: 'endpoint-protection', name: 'Endpoint Security', desc: 'Protect devices', icon: '💻' },
+            { id: 'patch', name: 'Patch Management', desc: 'Update system patches', icon: '🔧' }
+        ],
+        'Threat Detection': [
+            { id: 'phishing', name: 'Phishing Detector', desc: 'Detect phishing attempts', icon: '🎣' },
+            { id: 'siem', name: 'SIEM Dashboard', desc: 'Security monitoring', icon: '📊' },
+            { id: 'honeypot', name: 'Honeypot', desc: 'Trap attackers', icon: '🍯' },
+            { id: 'email-security', name: 'Email Security', desc: 'Email protection', icon: '📧' }
+        ],
+        'Data Protection': [
+            { id: 'backup', name: 'Backup System', desc: 'Create data backups', icon: '💾' },
+            { id: 'access-control', name: 'Access Control', desc: 'Manage permissions', icon: '🔑' },
+            { id: 'cloud-security', name: 'Cloud Security', desc: 'Secure cloud infra', icon: '☁️' },
+            { id: 'incident-response', name: 'Incident Response', desc: 'Handle incidents', icon: '🚨' }
+        ]
+    },
+    attack: {
+        'Web Application': [
+            { id: 'sql-injection', name: 'SQL Injection', desc: 'Test SQL vulnerability', icon: '💉' },
+            { id: 'xss', name: 'XSS Attack', desc: 'Test XSS vulnerability', icon: '⚡' },
+            { id: 'api-security', name: 'API Security', desc: 'Test API vulnerabilities', icon: '🔌' },
+            { id: 'zero-day', name: 'Zero-Day', desc: 'Exploit vulnerabilities', icon: '🎯' }
+        ],
+        'Network Attacks': [
+            { id: 'port-scan', name: 'Port Scanner', desc: 'Scan network ports', icon: '🔍' },
+            { id: 'dos', name: 'DoS Simulation', desc: 'Denial of service', icon: '💥' },
+            { id: 'mitm', name: 'Man-in-Middle', desc: 'Intercept communications', icon: '👤' },
+            { id: 'wireless-attack', name: 'Wireless Attack', desc: 'Compromise WiFi', icon: '📡' }
+        ],
+        'System Exploitation': [
+            { id: 'password-crack', name: 'Password Cracker', desc: 'Test password strength', icon: '🔓' },
+            { id: 'ransomware', name: 'Ransomware', desc: 'Simulate ransomware', icon: '🔒' },
+            { id: 'cloud-penetration', name: 'Cloud Penetration', desc: 'Attack cloud infra', icon: '☁️' },
+            { id: 'iot-hacking', name: 'IoT Hacking', desc: 'Compromise IoT devices', icon: '📱' }
+        ],
+        'Social Engineering': [
+            { id: 'social-eng', name: 'Social Engineering', desc: 'Human vulnerabilities', icon: '🎭' },
+            { id: 'mobile-security', name: 'Mobile Security', desc: 'Test mobile apps', icon: '📲' },
+            { id: 'reverse-engineering', name: 'Reverse Engineering', desc: 'Analyze malware', icon: '🔍' },
+            { id: 'forensics', name: 'Digital Forensics', desc: 'Analyze evidence', icon: '🔎' }
+        ]
+    }
+};
+
+// Quick actions configuration
+const quickActions = {
     defense: [
-        { id: 'firewall', name: '🔥 Firewall Configuration', desc: 'Configure network firewall' },
-        { id: 'antivirus', name: '🦠 Antivirus Scan', desc: 'Scan for malware' },
-        { id: 'phishing', name: '🎣 Phishing Detector', desc: 'Detect phishing attempts' },
-        { id: 'ids', name: '🚨 Intrusion Detection', desc: 'Monitor for intrusions' },
-        { id: 'encryption', name: '🔐 Data Encryption', desc: 'Encrypt sensitive data' },
-        { id: 'backup', name: '💾 Backup System', desc: 'Create data backups' },
-        { id: 'patch', name: '🔧 Patch Management', desc: 'Update system patches' },
-        { id: 'access-control', name: '🔑 Access Control', desc: 'Manage user permissions' }
+        { name: 'Quick Scan', action: 'runQuickScan', icon: '⚡' },
+        { name: 'Enable Firewall', action: 'enableFirewall', icon: '🔥' },
+        { name: 'Check Status', action: 'checkStatus', icon: '📊' }
     ],
     attack: [
-        { id: 'sql-injection', name: '💉 SQL Injection', desc: 'Test SQL vulnerability' },
-        { id: 'xss', name: '⚡ XSS Attack', desc: 'Test XSS vulnerability' },
-        { id: 'port-scan', name: '🔍 Port Scanner', desc: 'Scan network ports' },
-        { id: 'password-crack', name: '🔓 Password Cracker', desc: 'Test password strength' },
-        { id: 'dos', name: '💥 DoS Simulation', desc: 'Simulate denial of service' },
-        { id: 'mitm', name: '👤 Man-in-the-Middle', desc: 'Intercept communications' },
-        { id: 'ransomware', name: '🔒 Ransomware Sim', desc: 'Simulate ransomware' },
-        { id: 'social-eng', name: '🎭 Social Engineering', desc: 'Test human vulnerabilities' }
+        { name: 'Port Scan', action: 'quickPortScan', icon: '🔍' },
+        { name: 'Test Password', action: 'testPassword', icon: '🔓' },
+        { name: 'SQL Test', action: 'testSQL', icon: '💉' }
     ]
 };
 
@@ -195,6 +241,41 @@ const tutorialContent = {
         <div class="success-box">
             <strong>✅ Best Practice:</strong> Always encrypt sensitive data at rest and in transit. Use strong encryption standards like AES-256.
         </div>
+
+        <h3>🔒 VPN Configuration</h3>
+        <h4>What it does:</h4>
+        <p>Creates a secure, encrypted tunnel between your device and a remote server, protecting your internet traffic from eavesdropping.</p>
+        
+        <h4>How to use:</h4>
+        <ol>
+            <li>Select VPN server and protocol</li>
+            <li>Choose encryption method</li>
+            <li>Click "Connect VPN" to establish secure connection</li>
+            <li>Monitor encrypted data flow</li>
+        </ol>
+
+        <h3>📊 SIEM Dashboard</h3>
+        <h4>What it does:</h4>
+        <p>Centralized security monitoring that aggregates and analyzes security events from across your infrastructure.</p>
+        
+        <h4>How to use:</h4>
+        <ol>
+            <li>Start monitoring to begin collecting security events</li>
+            <li>Review real-time alerts and threat levels</li>
+            <li>Generate comprehensive security reports</li>
+        </ol>
+
+        <h3>🍯 Honeypot Deployment</h3>
+        <h4>What it does:</h4>
+        <p>Deploys deceptive systems that appear vulnerable to attract and study attackers.</p>
+        
+        <h4>How to use:</h4>
+        <ol>
+            <li>Choose honeypot interaction level</li>
+            <li>Select services to emulate</li>
+            <li>Deploy and monitor for attacker activity</li>
+            <li>Analyze captured attack data</li>
+        </ol>
     `,
     
     attack: `
@@ -338,6 +419,28 @@ const tutorialContent = {
             <li>Load balancing and redundancy</li>
             <li>Anomaly detection and traffic analysis</li>
         </ul>
+
+        <h3>🎯 Zero-Day Exploit</h3>
+        <h4>What it is:</h4>
+        <p>Exploits previously unknown vulnerabilities that have no available patches.</p>
+        
+        <h4>How to simulate:</h4>
+        <ol>
+            <li>Select target software and exploit type</li>
+            <li>Launch the exploit attempt</li>
+            <li>Observe if security controls prevent the attack</li>
+        </ol>
+
+        <h3>📡 Wireless Network Attack</h3>
+        <h4>What it is:</h4>
+        <p>Compromises wireless networks through various attack vectors.</p>
+        
+        <h4>How to simulate:</h4>
+        <ol>
+            <li>Select target network and attack method</li>
+            <li>Execute the wireless attack</li>
+            <li>Analyze success rate and captured data</li>
+        </ol>
 
         <div class="warning-box">
             <strong>⚠️ Legal Notice:</strong> DoS attacks are illegal. This is a simulation for educational purposes only. Real attacks can result in criminal charges.
@@ -495,21 +598,162 @@ function loadTools() {
     const currentTools = tools[state.mode];
     
     toolsList.innerHTML = '';
-    currentTools.forEach(tool => {
-        const btn = document.createElement('button');
-        btn.className = 'tool-btn';
-        btn.innerHTML = `${tool.name}<br><small>${tool.desc}</small>`;
-        btn.onclick = () => executeTool(tool.id);
-        toolsList.appendChild(btn);
+    
+    // Add search box
+    const searchBox = document.createElement('div');
+    searchBox.className = 'tools-search';
+    searchBox.innerHTML = `
+        <input type="text" class="search-box" placeholder="🔍 Search tools..." id="toolsSearch">
+    `;
+    toolsList.appendChild(searchBox);
+    
+    // Add quick actions
+    const quickActionsContainer = document.createElement('div');
+    quickActionsContainer.className = 'quick-actions';
+    quickActions[state.mode].forEach(action => {
+        const actionBtn = document.createElement('div');
+        actionBtn.className = 'quick-action';
+        actionBtn.innerHTML = `
+            <div style="font-size: 1rem; margin-bottom: 0.25rem;">${action.icon}</div>
+            <div>${action.name}</div>
+        `;
+        actionBtn.onclick = () => executeQuickAction(action.action);
+        quickActionsContainer.appendChild(actionBtn);
     });
+    toolsList.appendChild(quickActionsContainer);
+    
+    // Add tools by category
+    Object.keys(currentTools).forEach(category => {
+        const categorySection = document.createElement('div');
+        categorySection.className = 'tools-category';
+        
+        const categoryHeader = document.createElement('div');
+        categoryHeader.className = 'category-header';
+        categoryHeader.innerHTML = `
+            <span class="category-icon">${getCategoryIcon(category)}</span>
+            ${category}
+        `;
+        categorySection.appendChild(categoryHeader);
+        
+        const toolsGrid = document.createElement('div');
+        toolsGrid.className = 'tools-grid';
+        
+        currentTools[category].forEach(tool => {
+            const toolCard = document.createElement('div');
+            toolCard.className = `tool-card ${state.mode}`;
+            toolCard.innerHTML = `
+                <span class="tool-icon">${tool.icon}</span>
+                <div class="tool-name">${tool.name}</div>
+                <div class="tool-desc">${tool.desc}</div>
+                <div class="tool-status">
+                    <span class="status-dot"></span>
+                    <span>Ready</span>
+                </div>
+            `;
+            toolCard.onclick = () => executeTool(tool.id);
+            toolsGrid.appendChild(toolCard);
+        });
+        
+        categorySection.appendChild(toolsGrid);
+        toolsList.appendChild(categorySection);
+    });
+    
+    // Add search functionality
+    const searchInput = document.getElementById('toolsSearch');
+    searchInput.addEventListener('input', filterTools);
+}
+
+// Quick action handlers
+function executeQuickAction(action) {
+    switch(action) {
+        case 'runQuickScan':
+            addLog('Quick scan initiated', 'info');
+            showNotification('Quick Scan', 'Running quick system scan...', 'info');
+            updateScore(5);
+            break;
+        case 'enableFirewall':
+            if (!state.isFirewallActive) {
+                state.isFirewallActive = true;
+                addLog('Firewall enabled via quick action', 'success');
+                showNotification('Firewall', 'Firewall enabled successfully', 'success');
+                updateScore(10);
+            }
+            break;
+        case 'checkStatus':
+            addLog('System status checked', 'info');
+            showNotification('Status', `Health: ${state.systemHealth}% | Score: ${state.score}`, 'info');
+            break;
+        case 'quickPortScan':
+            addLog('Quick port scan initiated', 'info');
+            showNotification('Port Scan', 'Scanning common ports...', 'info');
+            updateScore(8);
+            break;
+        case 'testPassword':
+            addLog('Password strength test initiated', 'info');
+            showNotification('Password Test', 'Testing password security...', 'info');
+            updateScore(8);
+            break;
+        case 'testSQL':
+            addLog('SQL injection test initiated', 'info');
+            showNotification('SQL Test', 'Testing for SQL vulnerabilities...', 'info');
+            updateScore(8);
+            break;
+    }
+}
+
+// Filter tools based on search
+function filterTools() {
+    const searchTerm = document.getElementById('toolsSearch').value.toLowerCase();
+    const toolCards = document.querySelectorAll('.tool-card');
+    
+    toolCards.forEach(card => {
+        const toolName = card.querySelector('.tool-name').textContent.toLowerCase();
+        const toolDesc = card.querySelector('.tool-desc').textContent.toLowerCase();
+        
+        if (toolName.includes(searchTerm) || toolDesc.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Get category icons
+function getCategoryIcon(category) {
+    const icons = {
+        'Network Security': '🌐',
+        'Endpoint Protection': '💻',
+        'Threat Detection': '🔍',
+        'Data Protection': '🔒',
+        'Web Application': '⚡',
+        'Network Attacks': '📡',
+        'System Exploitation': '🎯',
+        'Social Engineering': '🎭'
+    };
+    return icons[category] || '🛠️';
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
+    // Replace mode selector with compact version
+    const modeSelector = document.querySelector('.mode-selector');
+    if (modeSelector) {
+        modeSelector.innerHTML = `
+            <div class="mode-selector-compact">
+                <div class="mode-tab active" data-mode="defense">
+                    🛡️ Defense
+                </div>
+                <div class="mode-tab" data-mode="attack">
+                    ⚔️ Attack
+                </div>
+            </div>
+        `;
+    }
+    
     // Mode selector
-    document.querySelectorAll('.mode-btn').forEach(btn => {
+    document.querySelectorAll('.mode-tab').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             state.mode = e.target.dataset.mode;
             loadTools();
@@ -642,6 +886,24 @@ function executeTool(toolId) {
             break;
         case 'social-eng':
             renderSocialEngineering(browserContent);
+            break;
+        case 'vpn':
+            renderVPN(browserContent);
+            break;
+        case 'siem':
+            renderSIEM(browserContent);
+            break;
+        case 'honeypot':
+            renderHoneypot(browserContent);
+            break;
+        case 'web-filter':
+            renderWebFilter(browserContent);
+            break;
+        case 'zero-day':
+            renderZeroDay(browserContent);
+            break;
+        case 'wireless-attack':
+            renderWirelessAttack(browserContent);
             break;
     }
 }
@@ -1706,6 +1968,414 @@ window.launchSocialEngineering = function() {
         }
         addLog(`Social engineering ${type} attack: ${successRate}% success rate`, successRate > 60 ? 'warning' : 'info');
     }, 2500);
+};
+
+// VPN Setup Tool
+function renderVPN(container) {
+    container.innerHTML = `
+        <h2>🔒 VPN Configuration</h2>
+        <p>Set up secure Virtual Private Network connections</p>
+        <div class="sim-form">
+            <div class="form-group">
+                <label>VPN Server:</label>
+                <input type="text" id="vpnServer" placeholder="vpn.securecompany.com">
+            </div>
+            <div class="form-group">
+                <label>Protocol:</label>
+                <select id="vpnProtocol">
+                    <option value="openvpn">OpenVPN</option>
+                    <option value="wireguard">WireGuard</option>
+                    <option value="ikev2">IKEv2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Encryption:</label>
+                <select id="vpnEncryption">
+                    <option value="aes-256">AES-256</option>
+                    <option value="chaCha20">ChaCha20</option>
+                    <option value="aes-128">AES-128</option>
+                </select>
+            </div>
+            <button class="btn" onclick="setupVPN()">Connect VPN</button>
+            <button class="btn" onclick="disconnectVPN()">Disconnect</button>
+            <div id="vpnResults" class="result-box" style="margin-top: 1rem;">
+                <strong>Status:</strong> Disconnected<br>
+                <strong>Data Encrypted:</strong> 0 MB
+            </div>
+        </div>
+    `;
+}
+
+window.setupVPN = function() {
+    const server = document.getElementById('vpnServer').value || 'vpn.securecompany.com';
+    const protocol = document.getElementById('vpnProtocol').value;
+    const encryption = document.getElementById('vpnEncryption').value;
+    const results = document.getElementById('vpnResults');
+    
+    results.className = 'result-box protected';
+    results.innerHTML = `
+        <strong>✅ VPN Connected</strong><br>
+        <strong>Server:</strong> ${server}<br>
+        <strong>Protocol:</strong> ${protocol}<br>
+        <strong>Encryption:</strong> ${encryption}<br>
+        <strong>Status:</strong> 🟢 Secure Connection<br>
+        <strong>Data Encrypted:</strong> ${Math.floor(Math.random() * 1000)} MB
+    `;
+    
+    updateScore(25);
+    updateSystemHealth(10);
+    addLog(`VPN connected using ${protocol} with ${encryption} encryption`, 'success');
+    showNotification('VPN Active', 'Secure connection established', 'success');
+};
+
+window.disconnectVPN = function() {
+    const results = document.getElementById('vpnResults');
+    results.className = 'result-box';
+    results.innerHTML = '<strong>Status:</strong> Disconnected<br><strong>Data Encrypted:</strong> 0 MB';
+    addLog('VPN disconnected', 'info');
+};
+
+// SIEM Dashboard
+function renderSIEM(container) {
+    container.innerHTML = `
+        <h2>📊 SIEM Dashboard</h2>
+        <p>Security Information and Event Management - Centralized security monitoring</p>
+        <div class="sim-form">
+            <button class="btn" onclick="startSIEM()">Start Monitoring</button>
+            <button class="btn" onclick="generateSIEMReport()">Generate Report</button>
+            <div id="siemResults" class="result-box" style="margin-top: 1rem;">
+                <strong>Status:</strong> Ready<br>
+                <strong>Alerts:</strong> 0<br>
+                <strong>Events Processed:</strong> 0
+            </div>
+            <div id="siemAlerts" style="margin-top: 1rem; max-height: 200px; overflow-y: auto;"></div>
+        </div>
+    `;
+}
+
+let siemInterval;
+window.startSIEM = function() {
+    const results = document.getElementById('siemResults');
+    const alerts = document.getElementById('siemAlerts');
+    let events = 0;
+    let alertCount = 0;
+    
+    siemInterval = setInterval(() => {
+        events += Math.floor(Math.random() * 100) + 50;
+        
+        if (Math.random() < 0.4) {
+            alertCount++;
+            const alertTypes = [
+                'Multiple failed login attempts',
+                'Unusual network traffic pattern',
+                'Suspicious file access',
+                'Privilege escalation attempt',
+                'Malware signature detected',
+                'Data exfiltration attempt'
+            ];
+            const alert = alertTypes[Math.floor(Math.random() * alertTypes.length)];
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'log-entry warning';
+            alertDiv.textContent = `[${new Date().toLocaleTimeString()}] ${alert}`;
+            alerts.appendChild(alertDiv);
+            
+            if (alertCount > 10) {
+                alerts.removeChild(alerts.firstChild);
+            }
+        }
+        
+        results.innerHTML = `
+            <strong>Status:</strong> 🟢 Active Monitoring<br>
+            <strong>Alerts:</strong> ${alertCount}<br>
+            <strong>Events Processed:</strong> ${events.toLocaleString()}<br>
+            <strong>Threat Level:</strong> ${alertCount > 5 ? 'High' : alertCount > 2 ? 'Medium' : 'Low'}
+        `;
+        
+        results.className = alertCount > 5 ? 'result-box vulnerable' : 'result-box protected';
+    }, 2000);
+    
+    addLog('SIEM monitoring started', 'success');
+    updateScore(15);
+};
+
+window.generateSIEMReport = function() {
+    showNotification('Report Generated', 'SIEM security report created', 'success');
+    updateScore(20);
+    addLog('Generated comprehensive SIEM security report', 'success');
+};
+
+// Honeypot System
+function renderHoneypot(container) {
+    container.innerHTML = `
+        <h2>🍯 Honeypot Deployment</h2>
+        <p>Deploy deceptive systems to detect and analyze attackers</p>
+        <div class="sim-form">
+            <div class="form-group">
+                <label>Honeypot Type:</label>
+                <select id="honeypotType">
+                    <option value="low">Low Interaction</option>
+                    <option value="medium">Medium Interaction</option>
+                    <option value="high">High Interaction</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Services to Emulate:</label>
+                <div>
+                    <input type="checkbox" id="service-ssh" checked> SSH<br>
+                    <input type="checkbox" id="service-ftp" checked> FTP<br>
+                    <input type="checkbox" id="service-http" checked> HTTP<br>
+                    <input type="checkbox" id="service-database"> Database
+                </div>
+            </div>
+            <button class="btn" onclick="deployHoneypot()">Deploy Honeypot</button>
+            <button class="btn" onclick="analyzeHoneypot()">Analyze Attacks</button>
+            <div id="honeypotResults" class="result-box" style="margin-top: 1rem;">
+                <strong>Status:</strong> Not Deployed<br>
+                <strong>Attackers Captured:</strong> 0
+            </div>
+        </div>
+    `;
+}
+
+window.deployHoneypot = function() {
+    const type = document.getElementById('honeypotType').value;
+    const results = document.getElementById('honeypotResults');
+    
+    results.className = 'result-box protected';
+    results.innerHTML = `
+        <strong>✅ Honeypot Deployed</strong><br>
+        <strong>Type:</strong> ${type} Interaction<br>
+        <strong>Status:</strong> 🟢 Monitoring for attackers<br>
+        <strong>Attackers Captured:</strong> 0<br>
+        <em>Honeypot is actively collecting attack data...</em>
+    `;
+    
+    // Simulate attackers over time
+    setTimeout(() => {
+        const attackers = Math.floor(Math.random() * 15) + 5;
+        results.innerHTML = `
+            <strong>✅ Honeypot Active</strong><br>
+            <strong>Type:</strong> ${type} Interaction<br>
+            <strong>Status:</strong> 🟢 ${attackers} attackers captured<br>
+            <strong>Attackers Captured:</strong> ${attackers}<br>
+            <strong>Data Collected:</strong> ${Math.floor(Math.random() * 500) + 100} MB
+        `;
+    }, 3000);
+    
+    updateScore(30);
+    addLog(`Deployed ${type} interaction honeypot`, 'success');
+};
+
+window.analyzeHoneypot = function() {
+    showNotification('Analysis Complete', 'Honeypot data analyzed - Attack patterns identified', 'success');
+    updateScore(25);
+    addLog('Analyzed honeypot attack data', 'info');
+};
+
+// Web Filter
+function renderWebFilter(container) {
+    container.innerHTML = `
+        <h2>🌐 Web Content Filter</h2>
+        <p>Block malicious and inappropriate websites</p>
+        <div class="sim-form">
+            <div class="form-group">
+                <label>Website URL to Block:</label>
+                <input type="text" id="blockUrl" placeholder="malicious-site.com">
+            </div>
+            <div class="form-group">
+                <label>Category:</label>
+                <select id="urlCategory">
+                    <option value="malware">Malware Distribution</option>
+                    <option value="phishing">Phishing</option>
+                    <option value="pornography">Adult Content</option>
+                    <option value="gambling">Gambling</option>
+                    <option value="social">Social Media</option>
+                </select>
+            </div>
+            <button class="btn" onclick="blockWebsite()">Block Website</button>
+            <button class="btn" onclick="testWebFilter()">Test Filter</button>
+            <div id="webFilterResults" class="result-box" style="margin-top: 1rem;">
+                <strong>Status:</strong> Active<br>
+                <strong>Websites Blocked:</strong> 0<br>
+                <strong>Requests Blocked:</strong> 0
+            </div>
+        </div>
+    `;
+}
+
+let blockedSites = [];
+let blockedRequests = 0;
+
+window.blockWebsite = function() {
+    const url = document.getElementById('blockUrl').value;
+    const category = document.getElementById('urlCategory').value;
+    
+    if (url && !blockedSites.includes(url)) {
+        blockedSites.push(url);
+        blockedRequests += Math.floor(Math.random() * 50) + 10;
+        
+        const results = document.getElementById('webFilterResults');
+        results.innerHTML = `
+            <strong>Status:</strong> Active<br>
+            <strong>Websites Blocked:</strong> ${blockedSites.length}<br>
+            <strong>Requests Blocked:</strong> ${blockedRequests}<br>
+            <strong>Last Blocked:</strong> ${url} (${category})
+        `;
+        
+        updateScore(15);
+        addLog(`Blocked website: ${url} (${category})`, 'success');
+        showNotification('Website Blocked', `${url} added to blocklist`, 'success');
+    }
+};
+
+window.testWebFilter = function() {
+    const testSites = [
+        'malicious-download.com',
+        'fake-bank-login.com',
+        'adult-content.site',
+        'gambling-casino.net'
+    ];
+    
+    const testSite = testSites[Math.floor(Math.random() * testSites.length)];
+    const isBlocked = Math.random() > 0.3;
+    
+    if (isBlocked) {
+        showNotification('Access Blocked', `${testSite} was blocked by web filter`, 'success');
+        updateScore(10);
+    } else {
+        showNotification('Access Allowed', `${testSite} passed through filter`, 'warning');
+    }
+};
+
+// Zero-Day Exploit
+function renderZeroDay(container) {
+    container.innerHTML = `
+        <h2>🎯 Zero-Day Exploit Simulation</h2>
+        <p>Exploit previously unknown vulnerabilities</p>
+        <div class="sim-form">
+            <div class="form-group">
+                <label>Target Software:</label>
+                <select id="targetSoftware">
+                    <option value="browser">Web Browser</option>
+                    <option value="office">Office Suite</option>
+                    <option value="os">Operating System</option>
+                    <option value="media">Media Player</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Exploit Type:</label>
+                <select id="exploitType">
+                    <option value="memory">Memory Corruption</option>
+                    <option value="logic">Logic Flaw</option>
+                    <option value="config">Configuration Error</option>
+                </select>
+            </div>
+            <button class="btn" onclick="launchZeroDay()">Launch Exploit</button>
+            <div id="zeroDayResults" class="result-box" style="display: none; margin-top: 1rem;"></div>
+        </div>
+    `;
+}
+
+window.launchZeroDay = function() {
+    const software = document.getElementById('targetSoftware').value;
+    const exploitType = document.getElementById('exploitType').value;
+    const results = document.getElementById('zeroDayResults');
+    
+    results.style.display = 'block';
+    results.innerHTML = '<strong>Executing zero-day exploit...</strong>';
+    
+    setTimeout(() => {
+        const success = Math.random() > 0.4;
+        
+        if (success) {
+            results.className = 'result-box vulnerable';
+            results.innerHTML = `
+                <strong>🚨 EXPLOIT SUCCESSFUL!</strong><br>
+                <strong>Target:</strong> ${software}<br>
+                <strong>Method:</strong> ${exploitType}<br>
+                <strong>Impact:</strong> Remote Code Execution<br>
+                <strong>Detection:</strong> Not detected by antivirus<br>
+                <em>This demonstrates why prompt patching is critical!</em>
+            `;
+            updateScore(40);
+            updateSystemHealth(-25);
+        } else {
+            results.className = 'result-box protected';
+            results.innerHTML = `
+                <strong>✅ EXPLOIT FAILED</strong><br>
+                <strong>Target:</strong> ${software}<br>
+                <strong>Method:</strong> ${exploitType}<br>
+                <strong>Reason:</strong> System protections prevented exploitation<br>
+                <em>Modern security controls can prevent zero-day attacks</em>
+            `;
+            updateScore(20);
+        }
+        
+        addLog(`Zero-day attack on ${software}: ${success ? 'Successful' : 'Failed'}`, success ? 'warning' : 'info');
+    }, 3000);
+};
+
+// Wireless Attack
+function renderWirelessAttack(container) {
+    container.innerHTML = `
+        <h2>📡 Wireless Network Attack</h2>
+        <p>Compromise wireless networks and protocols</p>
+        <div class="sim-form">
+            <div class="form-group">
+                <label>Target Network:</label>
+                <input type="text" id="targetNetwork" placeholder="HomeWiFi" value="Corporate_WLAN">
+            </div>
+            <div class="form-group">
+                <label>Attack Method:</label>
+                <select id="wirelessAttack">
+                    <option value="evil-twin">Evil Twin Attack</option>
+                    <option value="deauth">Deauthentication Attack</option>
+                    <option value="wps">WPS PIN Attack</option>
+                    <option value="captive">Captive Portal Bypass</option>
+                </select>
+            </div>
+            <button class="btn" onclick="startWirelessAttack()">Start Attack</button>
+            <div id="wirelessResults" class="result-box" style="margin-top: 1rem;">
+                <strong>Status:</strong> Ready<br>
+                <strong>Networks Detected:</strong> 0
+            </div>
+        </div>
+    `;
+}
+
+window.startWirelessAttack = function() {
+    const network = document.getElementById('targetNetwork').value;
+    const method = document.getElementById('wirelessAttack').value;
+    const results = document.getElementById('wirelessResults');
+    
+    results.innerHTML = '<strong>Scanning for wireless networks...</strong>';
+    
+    setTimeout(() => {
+        const networks = Math.floor(Math.random() * 15) + 5;
+        results.innerHTML = `
+            <strong>Wireless Networks Found:</strong> ${networks}<br>
+            <strong>Target:</strong> ${network}<br>
+            <strong>Method:</strong> ${method.replace('-', ' ')}<br>
+            <strong>Status:</strong> Executing attack...
+        `;
+        
+        setTimeout(() => {
+            const success = Math.random() > 0.5;
+            results.className = success ? 'result-box vulnerable' : 'result-box';
+            results.innerHTML = `
+                <strong>${success ? '🚨 ATTACK SUCCESSFUL' : '⚠️ ATTACK FAILED'}</strong><br>
+                <strong>Target:</strong> ${network}<br>
+                <strong>Method:</strong> ${method.replace('-', ' ')}<br>
+                <strong>Result:</strong> ${success ? 'Network compromised' : 'Security measures prevented access'}<br>
+                ${success ? '<em>Wireless credentials captured!</em>' : '<em>Enable WPA3 for better protection</em>'}
+            `;
+            
+            updateScore(success ? 35 : 15);
+            if (success) updateSystemHealth(-20);
+            addLog(`Wireless ${method} attack: ${success ? 'Successful' : 'Failed'}`, success ? 'warning' : 'info');
+        }, 2000);
+    }, 2000);
 };
 
 // Tutorial System

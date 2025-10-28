@@ -30,15 +30,23 @@
         <!-- Main Content -->
         <div class="main-content">
             <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="mode-selector">
-                    <button class="mode-btn active" data-mode="defense">
-                        🛡️ Defense Mode
-                    </button>
-                    <button class="mode-btn" data-mode="attack">
-                        ⚔️ Attack Mode
-                    </button>
-                </div>
+<aside class="sidebar">
+    <div class="mode-selector">
+        <!-- This will be replaced by the compact version via JavaScript -->
+    </div>
+
+    <div class="tools-panel">
+        <h3>Security Tools</h3>
+        <div class="tools-container">
+            <div id="toolsList" class="tools-list"></div>
+        </div>
+    </div>
+
+    <div class="logs-panel">
+        <h3>Activity Log</h3>
+        <div id="activityLog" class="log-content"></div>
+    </div>
+</aside>
 
                 <div class="tools-panel">
                     <h3>Tools</h3>
