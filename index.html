@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Simulator - Professional Training Environment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="shield-icon">🛡️</span>
+                <h1>CyberSec Simulator</h1>
+            </div>
+            <div class="system-stats">
+                <div class="stat">
+                    <span class="stat-label">System Health:</span>
+                    <span id="systemHealth" class="stat-value">100%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Score:</span>
+                    <span id="score" class="stat-value">0</span>
+                </div>
+                <button class="tutorial-btn" onclick="openTutorial()">📚 Tutorial</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="defense">
+                        🛡️ Defense Mode
+                    </button>
+                    <button class="mode-btn" data-mode="attack">
+                        ⚔️ Attack Mode
+                    </button>
+                </div>
+
+                <div class="tools-panel">
+                    <h3>Tools</h3>
+                    <div id="toolsList" class="tools-list"></div>
+                </div>
+
+                <div class="logs-panel">
+                    <h3>Activity Log</h3>
+                    <div id="activityLog" class="log-content"></div>
+                </div>
+            </aside>
+
+            <!-- Workspace -->
+            <main class="workspace">
+                <div class="terminal-window">
+                    <div class="window-header">
+                        <div class="window-controls">
+                            <span class="control close"></span>
+                            <span class="control minimize"></span>
+                            <span class="control maximize"></span>
+                        </div>
+                        <span class="window-title">Terminal</span>
+                    </div>
+                    <div id="terminal" class="terminal-content">
+                        <div class="terminal-line">CyberSec Simulator v2.0.1</div>
+                        <div class="terminal-line">Type 'help' for available commands</div>
+                        <div class="terminal-line">==========================================</div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">user@cyberSec:~$</span>
+                        <input type="text" id="terminalInput" class="terminal-input" autofocus>
+                    </div>
+                </div>
+
+                <div class="simulation-area">
+                    <div class="browser-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <div class="browser-bar">
+                                <input type="text" id="urlBar" class="url-bar" value="https://secure-bank.example.com" readonly>
+                                <button id="goBtn" class="go-btn">Go</button>
+                            </div>
+                        </div>
+                        <div id="browserContent" class="browser-content">
+                            <div class="welcome-screen">
+                                <h2>🖥️ Simulation Environment Ready</h2>
+                                <p>Select a tool from the sidebar to begin your cybersecurity training</p>
+                                <div class="quick-tips">
+                                    <h3>Quick Tips:</h3>
+                                    <ul>
+                                        <li>Use Defense Mode to protect against attacks</li>
+                                        <li>Use Attack Mode to learn offensive techniques</li>
+                                        <li>Monitor your system health and score</li>
+                                        <li>Check the activity log for detailed information</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Notification Area -->
+        <div id="notifications" class="notification-area"></div>
+
+        <!-- Tutorial Modal -->
+        <div id="tutorialModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📚 Complete Tutorial Guide</h2>
+                    <span class="close-modal" onclick="closeTutorial()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="tutorial-nav">
+                        <button class="tutorial-tab active" data-section="overview">Overview</button>
+                        <button class="tutorial-tab" data-section="defense">Defense Tools</button>
+                        <button class="tutorial-tab" data-section="attack">Attack Tools</button>
+                        <button class="tutorial-tab" data-section="terminal">Terminal Commands</button>
+                    </div>
+                    <div id="tutorialContent" class="tutorial-content">
+                        <!-- Content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
